@@ -1,4 +1,4 @@
- Introduction    
+ ##Introduction    
 
 Large amount of data is collected using lifestyle devices such as FITBIT and JAWBONE as they involve the movement of the subject. In an experiment 6 participants were regularly were made to do exercises of arms , biceps dumbells are foreams and data from acceleromter ffrom those are were extracted . 
 Exercises were were done in 5 ways in which the first method is correct method and the other 4 methods were common mistakes made during the exercise.
@@ -6,7 +6,7 @@ The exercise was done with the help of a professional so as to simulate the corr
 
 Coursera Practical Machine Learning
 
-PV Vineet
+#PV Vineet
 
 ```{r,warning=FALSE,message=FALSE,include=FALSE,echo=FALSE}
 library(dplyr)
