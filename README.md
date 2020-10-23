@@ -1,13 +1,14 @@
-# Introduction    
+ Introduction    
 
-Using devices such as Jawbone Up, Nike FuelBand, and Fitbit it is now possible to collect a large amount of data about personal activity relatively inexpensively. These type of devices are part of the quantified self movement – a group of enthusiasts who take measurements about themselves regularly to improve their health, to find patterns in their behavior, or because they are tech geeks. One thing that people regularly do is quantify how much of a particular activity they do, but they rarely quantify how well they do it. In this project, your goal will be to use data from accelerometers on the belt, forearm, arm, and dumbell of 6 participants. They were asked to perform barbell lifts correctly and incorrectly in 5 different ways.  
-Six young health participants were asked to perform one set of 10 repetitions of the Unilateral Dumbbell Biceps Curl in five different fashions: exactly according to the specification (Class A), throwing the elbows to the front (Class B), lifting the dumbbell only halfway (Class C), lowering the dumbbell only halfway (Class D) and throwing the hips to the front (Class E).  
-Class A corresponds to the specified execution of the exercise, while the other 4 classes correspond to common mistakes. Participants were supervised by an experienced weight lifter to make sure the execution complied to the manner they were supposed to simulate. The exercises were performed by six male participants aged between 20-28 years, with little weight lifting experience. It was made sure that all participants could easily simulate the mistakes in a safe and controlled manner by using a relatively light dumbbell (1.25kg).  
-My goal here is to predict the *"class"* with the help of other predictors. This project is a part of Coursera Practical Machine Learning Week 4 - Peer-graded Assignment: Prediction Assignment Writeup.  
+Large amount of data is collected using lifestyle devices such as FITBIT and JAWBONE as they involve the movement of the subject. In an experiment 6 participants were regularly were made to do exercises of arms , biceps dumbells are foreams and data from acceleromter ffrom those are were extracted . 
+Exercises were were done in 5 ways in which the first method is correct method and the other 4 methods were common mistakes made during the exercise.
+The exercise was done with the help of a professional so as to simulate the correct method . The participants were of the age group of 20-25. The aim of this project is to predict the mehod with help of other factors.
+
+Coursera Practical Machine Learning
+
+PV Vineet
 
 ```{r,warning=FALSE,message=FALSE,include=FALSE,echo=FALSE}
-# loading libraries
-# if the below libraries are not installed in your system, please install them
 library(dplyr)
 library(ggplot2)
 library(DT)
@@ -45,17 +46,17 @@ dfTrain <- dfTrain[inTrain,]
 dim(dfTrain); dim(dfVal)
 ```
   
-Now 3 partition of our data is ready, lets dive into analysis but 1st lets look at the proportion of different "classe":
+Three partition of the data is ready, anaylsis of the proportion of different "classes":
 
 ```{r}
 table(dfTrain$classe)/nrow(dfTrain)
 ```
   
-From the above it is clear that there are not that much bias in the data in term of different "classe".  
+From the above it is clear that there are not that much bias in the data in term of different "classes".  
 
 ## Column overview  
 
-The data has 160 columns and for training data 15699 rows. Data was collected with the help of 4 sensors, shown in the below diagram ([diagram source](http://groupware.les.inf.puc-rio.br/har#weight_lifting_exercises)).  
+ Data was collected using four accelerometer, shown in the below diagram ([diagram source](http://groupware.les.inf.puc-rio.br/har#weight_lifting_exercises)).  
 
 ```{r out.width = "50%", fig.align = "center", echo=FALSE}
 include_graphics("dig.png")
@@ -394,25 +395,6 @@ So it clear that SVM is giving good accuracy, though it not as good as random fo
 
 # Results  
 
-So from the above analysis it is clear that Random Forest is taking the lead in term of prediction. Now lets see how good it does in the Test set given in the Coursera project.  
-
-```{r}
-dfTest2 <- dfTest %>% select(final_cols,problem_id)
-xTest <- dfTest2 %>% select(final_cols)
-  
-result <- data.frame("problem_id" = dfTest$problem_id,
-                     "PREDICTION_RF" = predict(modelRF,xTest),
-                     "PREDICTION_GBM" = predict(modelGBM,xTest),
-                     "PREDICTION_SVM" = predict(modelSVM,xTest))
-result
-```
-
-# This is odd- UPDATE  
-
-My validation accuracy is good but my score in the quize was not correct. Maybe I should have not droped the columns when I selected 17 features. As Random Forest is doing so go I'll train one more RF with all the data and see if it helps. But still I dont understand why even after my accuracy on validation is above 95, how it is so bad. Need to look into it.  
-
-So for this update I will use all the predictors. And as there are so many columns I'll make it parallel so it doesnot take that long.  
-
 ```{r}
 dfTrainF2 <- tbl_df(dfTrain %>% 
                       select(-column_2drop,
@@ -457,12 +439,4 @@ result2 <- data.frame("problem_id" = dfTest$problem_id,
                      "PREDICTION_RF2_ALL_COL"=predict(modelRF2,xTest2))
 result2
 ```
-
-This time I did better. May be because the test size is so small my previous models did so bad because my validation accuracy was ok.
-
-# reference  
-
-* [Data Info](http://groupware.les.inf.puc-rio.br/har#weight_lifting_exercises)
-* [Download Training data](https://d396qusza40orc.cloudfront.net/predmachlearn/pml-training.csv)
-* [Download Test data](https://d396qusza40orc.cloudfront.net/predmachlearn/pml-testing.csv)
-* [Qualitative Activity Recognition of Weight Lifting Exercises - Velloso, E.; Bulling, A.; Gellersen, H.; Ugulino, W.; Fuks, H](http://groupware.les.inf.puc-rio.br/work.jsf?p1=11201)  
+\\\\
